@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bluetooth Alert</title>
+</head>
+<body>
+  <style>
+    body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin-top: 50px;
+}
+#status {
+    margin-top: 20px;
+    font-size: 1.2em;
+    color: blue;
+}
+  </style>
+    <h1>Bluetooth Device Scanner</h1>
+    <div id="status">Procurando dispositivos...</div>
+    <script src="script.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+    if (navigator.bluetooth) {
+        navigator.bluetooth.requestDevice({ acceptAllDevices: true })
+            .then(device => {
+                document.getElementById('status').textContent = `Dispositivo encontrado: ${device.name}`;
+                alert(`Dispositivo encontrado: ${device.name}`);
+            })
+            .catch(error => {
+                document.getElementById('status').textContent = `Erro: ${error}`;
+            });
+    } else {
+        document.getElementById('status').textContent = 'Bluetooth não suportado pelo navegador.';
+    }
+});
+
+  </script>
+</body>
+</html>
